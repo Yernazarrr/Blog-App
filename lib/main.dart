@@ -9,7 +9,7 @@ import 'features/auth/presentation/pages/login_page.dart';
 void main(List<String> args) async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  initDependencies();
+  await initDependencies();
   runApp(
     MultiBlocProvider(
       providers: [BlocProvider(create: (_) => sl<AuthBloc>())],
