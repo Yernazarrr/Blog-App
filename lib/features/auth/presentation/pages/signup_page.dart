@@ -1,10 +1,15 @@
+import 'package:blog_app/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/constants/app_colors.dart';
 import '../widgets/auth_field.dart';
 import '../widgets/auth_gradient_button.dart';
+import 'login_page.dart';
 
 class SignupPage extends StatefulWidget {
+  static MaterialPageRoute<dynamic> route() =>
+      MaterialPageRoute(builder: (context) => const SignupPage());
   const SignupPage({super.key});
 
   @override
@@ -28,6 +33,7 @@ class _SignupPageState extends State<SignupPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(),
       body: Padding(
         padding: const EdgeInsets.all(15.0),
         child: Form(
@@ -50,20 +56,39 @@ class _SignupPageState extends State<SignupPage> {
                 isObscureText: true,
               ),
               const SizedBox(height: 20),
-              const AuthGradientButton(textButton: 'Sign Up.'),
-              const SizedBox(height: 20),
-              RichText(
-                text: TextSpan(
-                  text: 'Already have an account? ',
-                  children: [
-                    TextSpan(
-                      text: 'Sign In.',
-                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                        color: AppColors.gradient2,
-                        fontWeight: FontWeight.bold,
+              AuthGradientButton(
+                buttonText: 'Sign Up.',
+                onPressed: () {
+                  if (_formKey.currentState!.validate()) {
+                    context.read<AuthBloc>().add(
+                      AuthSignUp(
+                        email: _emailController.text.trim(),
+                        name: _nameController.text.trim(),
+                        password: _passwordController.text.trim(),
                       ),
-                    ),
-                  ],
+                    );
+                  }
+                },
+              ),
+              const SizedBox(height: 20),
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(context, LoginPage.route());
+                },
+                child: RichText(
+                  text: TextSpan(
+                    text: 'Already have an account? ',
+                    children: [
+                      TextSpan(
+                        text: 'Login.',
+                        style: Theme.of(context).textTheme.titleMedium
+                            ?.copyWith(
+                              color: AppColors.gradient2,
+                              fontWeight: FontWeight.bold,
+                            ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ],
