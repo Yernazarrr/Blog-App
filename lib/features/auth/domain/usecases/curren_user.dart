@@ -2,7 +2,7 @@ import 'package:fpdart/fpdart.dart';
 
 import '../../../../core/error/failure.dart';
 import '../../../../core/usecase/usecase.dart';
-import '../entities/user.dart';
+import '../../../../core/common/entities/user.dart';
 import '../repositories/auth_repository.dart';
 
 class CurrenUser implements UseCase<User, NoParams> {
