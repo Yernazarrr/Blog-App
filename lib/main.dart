@@ -5,6 +5,8 @@ import 'core/common/cubits/app_user/app_user_cubit.dart';
 import 'core/theme/theme.dart';
 import 'features/auth/presentation/bloc/auth_bloc.dart';
 import 'features/auth/presentation/pages/login_page.dart';
+import 'features/blog/presentation/bloc/blog_bloc.dart';
+import 'features/blog/presentation/pages/blog_page.dart';
 import 'init_dependencies.dart';
 
 void main(List<String> args) async {
@@ -16,10 +18,11 @@ void main(List<String> args) async {
       providers: [
         BlocProvider(create: (_) => sl<AppUserCubit>()),
         BlocProvider(create: (_) => sl<AuthBloc>()),
+        BlocProvider(create: (_) => sl<BlogBloc>()),
       ],
       child: const MyApp(),
     ),
-  ); 
+  );
 }
 
 class MyApp extends StatefulWidget {
@@ -48,7 +51,7 @@ class _MyAppState extends State<MyApp> {
         },
         builder: (context, isLoggedIn) {
           if (isLoggedIn) {
-            return const Scaffold(body: Center(child: Text('Home Page')));
+            return const BlogPage();
           }
           return const LoginPage();
         },
