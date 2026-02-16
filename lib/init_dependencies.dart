@@ -1,3 +1,4 @@
+import 'package:blog_app/features/auth/domain/usecases/curren_user.dart';
 import 'package:get_it/get_it.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -23,14 +24,15 @@ Future<void> initDependencies() async {
 }
 
 void _initAuth() {
-  sl.registerFactory<AuthRemoteDataSource>(
-    () => AuthRemoteDataSourceImpl(sl()),
-  );
-
-  sl.registerFactory<AuthRepository>(() => AuthRepositoryImpl(sl()));
-
-  sl.registerFactory(() => UserSignUp(sl()));
-  sl.registerFactory(() => UserLogin(sl()));
-
-  sl.registerLazySingleton(() => AuthBloc(userSignUp: sl(), userLogin: sl()));
+  sl
+    ..registerFactory<AuthRemoteDataSource>(
+      () => AuthRemoteDataSourceImpl(sl()),
+    )
+    ..registerFactory<AuthRepository>(() => AuthRepositoryImpl(sl()))
+    ..registerFactory(() => UserSignUp(sl()))
+    ..registerFactory(() => UserLogin(sl()))
+    ..registerFactory(() => CurrenUser(sl()))
+    ..registerLazySingleton(
+      () => AuthBloc(userSignUp: sl(), userLogin: sl(), currentUser: sl()),
+    );
 }
