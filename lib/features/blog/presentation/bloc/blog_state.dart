@@ -20,4 +20,13 @@ final class BlogFailure extends BlogState {
   List<Object> get props => [message];
 }
 
-final class BlogSuccess extends BlogState {}
+final class BlogsDisplaySuccess extends BlogState {
+  final List<Blog> blogs;
+
+  const BlogsDisplaySuccess(this.blogs);
+
+  @override
+  List<Object> get props => [blogs];
+}
+
+final class BlogUploadSuccess extends BlogState {}
